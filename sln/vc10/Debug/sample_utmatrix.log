@@ -1,0 +1,5 @@
+﻿  sample_matrix.cpp
+c:\users\user\desktop\mp2-lab2-matrix-master\include\utmatrix.h(80): error C4716: 'TVector<TVector<int> >::operator[]': must return a value
+c:\users\user\desktop\mp2-lab2-matrix-master\include\utmatrix.h(80): error C4716: 'TVector<int>::operator[]': must return a value
+c:\users\user\desktop\mp2-lab2-matrix-master\include\utmatrix.h(183): error C4716: 'TMatrix<int>::operator=': must return a value
+c:\users\user\desktop\mp2-lab2-matrix-master\include\utmatrix.h(188): error C4716: 'TMatrix<int>::operator+': must return a value
