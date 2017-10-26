@@ -45,7 +45,6 @@ TEST(TMatrix, can_set_and_get_element)
 {
 	TMatrix<int> v(4);
 	v[0][0] = 4;
-
 	EXPECT_EQ(4, v[0][0]);
 }
 
@@ -64,29 +63,35 @@ TEST(TMatrix, throws_when_set_element_with_too_large_index)
 TEST(TMatrix, can_assign_matrix_to_itself)
 {
 	TMatrix<int> v(4);
-	v = v;
-	ASSERT_NO_THROW();
+	for (int i = 0; i < 4; i++)
+		v[i] = v[i] * 0 + i;
+	ASSERT_NO_THROW(v = v);
 }
 
 TEST(TMatrix, can_assign_matrices_of_equal_size)
 {
 	TMatrix<int> v1(4), v2(4);
-	v1[1] = v1[1]*0;
+	for (int i = 0; i < 4; i++)
+		v1[i] = v1[i] * 0 + i;
 	v2 = v1;
-	EXPECT_EQ(v1, v2); 
+	EXPECT_EQ(v2, v1); 
 }
 
 TEST(TMatrix, assign_operator_change_matrix_size)
 {
 	TMatrix<int> v1(4), v2(9);
-	v1 = v2;
-	EXPECT_EQ(v1, v2);
+	for (int i = 0; i < 4; i++)
+		v1[i] = v1[i] * 0 + i;
+	v2 = v1;
+	EXPECT_EQ(v2, v1);
 }
 
 TEST(TMatrix, can_assign_matrices_of_different_size)
 {
 	TMatrix<int> v1(4), v2(9);
-	v1 = v2;
+	for (int i = 0; i < 4; i++)
+		v1[i] = v1[i] * 0 + i;
+	v2 = v1;
 	EXPECT_EQ(v1, v2);
 }
 
@@ -118,8 +123,7 @@ TEST(TMatrix, can_add_matrices_with_equal_size)
 		v2[i] = v2[i]*0+1;
 		v3[i] = v1[i] + v2[i];
 	}
-	v1 = v2 + v1;
-	EXPECT_EQ(v1, v3);
+	EXPECT_EQ(v3, v2+v1);
 }
 
 TEST(TMtrix, cant_add_matrices_with_not_equal_size)
@@ -138,8 +142,7 @@ TEST(TMatrix, can_subtract_matrices_with_equal_size)
 		v2[i] = v2[i]*0+i*i;
 		v3[i] = v2[i] - v1[i];
 	}
-	v1 = v2 - v1;
-	EXPECT_EQ(v1, v3);
+	EXPECT_EQ(v3, v2-v1);
 }
 
 

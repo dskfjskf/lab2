@@ -101,13 +101,13 @@ template <class ValType> // сравнение
 bool TVector<ValType>::operator==(const TVector &v) const
 {
 	bool k = true;
-	if (Size == v.Size)
+	if ((Size == v.Size) && (StartIndex==v.StartIndex))
 	{
 		for (int i = 0; i < Size; i++)
 			if (v.pVector[i] != pVector[i])
 			{
 				k = false;
-				continue;
+				break;
 			}
 	}
 	else k = false;
@@ -117,9 +117,7 @@ bool TVector<ValType>::operator==(const TVector &v) const
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
 {
-	if (v == *this)
-		return false;
-	else return true;
+	return !(v == *this);
 } 
 
 template <class ValType> // присваивание
@@ -166,7 +164,7 @@ TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
-	if (Size!=v.Size)
+	if ((Size!=v.Size)||(StartIndex!=v.StartIndex))
 		throw " ";
 	else
 	{
@@ -180,7 +178,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
-	if (Size != v.Size)
+	if ((Size != v.Size) || (StartIndex != v.StartIndex))
 		throw " ";
 	else
 	{
@@ -238,7 +236,7 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType>>(s)
 {
-	if ((s>MAX_MATRIX_SIZE) || (s<0))
+	if (s>MAX_MATRIX_SIZE)
 		throw " ";
 		for (int i = 0; i < s; i++)
 			pVector[i] = TVector<ValType>(s-i, i);

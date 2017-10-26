@@ -31,7 +31,8 @@ TEST(TVector, can_create_copied_vector)
 TEST(TVector, copied_vector_is_equal_to_source_one)
 {
 	TVector<int> v1(5);
-	v1 = v1 + 1;
+	for (int i = 0; i < 5; i++)
+		v1[i] =1;
 	TVector<int> v2(v1);
 	EXPECT_EQ(v1, v2);
 }
@@ -76,14 +77,16 @@ TEST(TVector, throws_when_set_element_with_too_large_index)
 TEST(TVector, can_assign_vector_to_itself)
 {
 	TVector<int> v(4);
-	v = v;
-	ASSERT_NO_THROW();
+	for (int i = 0; i < 4; i++)
+		v[i] = 1;	
+	ASSERT_NO_THROW(v = v);
 }
 
 TEST(TVector, can_assign_vectors_of_equal_size)
 {
 	TVector<int> v1(4),v2(4);
-	v1 = v1 + 1;
+	for (int i = 0; i < 4; i++)
+		v1[i] = 1;
 	v2 = v1;
 	EXPECT_EQ(v1, v2);
 }
@@ -91,14 +94,18 @@ TEST(TVector, can_assign_vectors_of_equal_size)
 TEST(TVector, assign_operator_change_vector_size)
 {
 	TVector<int> v1(4), v2(9);
-	v1 = v2;
+	for (int i = 0; i < 4; i++)
+		v1[i] = 1;
+	v2 = v1;
 	EXPECT_EQ(v1, v2);
 }
 
 TEST(TVector, can_assign_vectors_of_different_size)
 {
 	TVector<int> v1(4), v2(9);
-	v1 = v2;
+	for (int i = 0; i < 4; i++)
+		v1[i] = 1;
+	v2 = v1;
 	EXPECT_EQ(v1, v2);
 }
 
@@ -127,10 +134,9 @@ TEST(TVector, can_add_scalar_to_vector)
 	for (int i = 0; i < s1; i++)
 	{
 		v1[i] = i;
-		v2[i] = v1[i] + k;
+		v2[i] = i + k;
 	}
-	v1=v1 + k;
-	EXPECT_EQ(v1, v2);
+	EXPECT_EQ(v2, v1+k);
 }
 
 TEST(TVector, can_subtract_scalar_from_vector)
@@ -140,10 +146,9 @@ TEST(TVector, can_subtract_scalar_from_vector)
 	for (int i = 0; i < s; i++)
 	{
 		v1[i] = i;
-		v2[i] = v1[i] + k;
+		v2[i] = i + k;
 	}
-	v2 = v2 - k;
-	EXPECT_EQ(v1, v2);
+	EXPECT_EQ(v1, v2-k);
 }
 
 TEST(TVector, can_multiply_scalar_by_vector)
@@ -153,10 +158,9 @@ TEST(TVector, can_multiply_scalar_by_vector)
 	for (int i = 0; i < s; i++)
 	{
 		v1[i] = i;
-		v2[i] = v1[i] * k;
+		v2[i] = i * k;
 	}
-	v1 = v1*k;
-	EXPECT_EQ(v1, v2);
+	EXPECT_EQ(v2, v1*k);
 }
 
 TEST(TVector, can_add_vectors_with_equal_size)
@@ -167,10 +171,9 @@ TEST(TVector, can_add_vectors_with_equal_size)
 	{
 		v1[i] =  i;
 		v2[i] =  1;
-		v3[i] = v1[i] + v2[i];
+		v3[i] = i+1;
 	}
-	v1=v2+v1;
-	EXPECT_EQ(v1, v3);  
+	EXPECT_EQ(v3, v2+v1);  
 }
 
 TEST(TVector, cant_add_vectors_with_not_equal_size)
@@ -187,10 +190,9 @@ TEST(TVector, can_subtract_vectors_with_equal_size)
 	{
 		v1[i] =i;
 		v2[i] = i*i;
-		v3[i] = v2[i] - v1[i];
+		v3[i] = i*i-i;
 	}
-	v1 = v2 - v1;
-	EXPECT_EQ(v1, v3);
+	EXPECT_EQ(v3, v2-v1);
 }
 
 TEST(TVector, cant_subtract_vectors_with_not_equal_size)
@@ -208,10 +210,9 @@ TEST(TVector, can_multiply_vectors_with_equal_size)
 	{
 		v1[i] = i;
 		v2[i] = i+2;
-		r += v1[i] * v2[i];
+		r +=i*(i+2);
 	}
-	
-	EXPECT_EQ(v1*v2, r);
+	EXPECT_EQ(r, v1*v2);
 }
 
 TEST(TVector, cant_multiply_vectors_with_not_equal_size)
